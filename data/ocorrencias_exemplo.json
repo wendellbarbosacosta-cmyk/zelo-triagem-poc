@@ -1,0 +1,852 @@
+{
+  "fonte": "Linear ZELO-7 (rascunho para revisão da PO). Trocar pelas mensagens reais.",
+  "total": 49,
+  "ocorrencias": [
+    {
+      "id": 1,
+      "grupo": "base",
+      "mensagem": "Bom dia, a lâmpada do corredor do 3º andar tá queimada faz 2 dias",
+      "contexto_original": "9h",
+      "contexto": {
+        "hora": 9
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Elétrica",
+        "urgencia": "Baixa",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 2,
+      "grupo": "base",
+      "mensagem": "Gente tá pingando água do teto da garagem bem em cima da minha vaga",
+      "contexto_original": "10h",
+      "contexto": {
+        "hora": 10
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Hidráulica",
+        "urgencia": "Média",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 3,
+      "grupo": "base",
+      "mensagem": "socorro o cano estourou no corredor do 2º andar, tá alagando tudo",
+      "contexto_original": "15h",
+      "contexto": {
+        "hora": 15
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Hidráulica",
+        "urgencia": "Alta",
+        "responsavel": "Manutenção",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 4,
+      "grupo": "base",
+      "mensagem": "Tô sentindo um cheiro forte de gás na escada do bloco B",
+      "contexto_original": "19h",
+      "contexto": {
+        "hora": 19
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Gás",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 5,
+      "grupo": "base",
+      "mensagem": "O elevador social parou entre o 5 e o 6 e tem gente dentro!!",
+      "contexto_original": "8h",
+      "contexto": {
+        "hora": 8
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Elevador",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true,
+        "imediato": true
+      }
+    },
+    {
+      "id": 6,
+      "grupo": "base",
+      "mensagem": "elevador de serviço tá dando um tranco quando para",
+      "contexto_original": "11h",
+      "contexto": {
+        "hora": 11
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Elevador",
+        "urgencia": "Média",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 7,
+      "grupo": "base",
+      "mensagem": "Apareceu uma rachadura enorme na parede do hall, ontem não tinha",
+      "contexto_original": "9h",
+      "contexto": {
+        "hora": 9
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Estrutura",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 8,
+      "grupo": "base",
+      "mensagem": "caiu um pedaço do reboco da fachada perto da entrada",
+      "contexto_original": "16h",
+      "contexto": {
+        "hora": 16
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Estrutura",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 9,
+      "grupo": "base",
+      "mensagem": "o portão da garagem não fecha de jeito nenhum",
+      "contexto_original": "22h",
+      "contexto": {
+        "hora": 22
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Acesso",
+        "urgencia": "Alta",
+        "responsavel": "Manutenção",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 10,
+      "grupo": "base",
+      "mensagem": "Portão da garagem tá lento pra abrir",
+      "contexto_original": "14h",
+      "contexto": {
+        "hora": 14
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Acesso",
+        "urgencia": "Média",
+        "responsavel": "Manutenção",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 11,
+      "grupo": "base",
+      "mensagem": "O interfone do meu apto não toca",
+      "contexto_original": "10h",
+      "contexto": {
+        "hora": 10
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Acesso",
+        "urgencia": "Baixa",
+        "responsavel": "Portaria",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 12,
+      "grupo": "base",
+      "mensagem": "Vizinho do 82 com som altíssimo e já passou da meia-noite",
+      "contexto_original": "0h30",
+      "contexto": {
+        "hora": 0
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Convivência",
+        "urgencia": "Média",
+        "responsavel": "Portaria",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 13,
+      "grupo": "base",
+      "mensagem": "tem um monte de lixo acumulado do lado do elevador, tá fedendo",
+      "contexto_original": "13h",
+      "contexto": {
+        "hora": 13
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Limpeza",
+        "urgencia": "Média",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 14,
+      "grupo": "base",
+      "mensagem": "Vi um rato na garagem perto das lixeiras",
+      "contexto_original": "20h",
+      "contexto": {
+        "hora": 20
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Limpeza",
+        "urgencia": "Média",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 15,
+      "grupo": "base",
+      "mensagem": "A piscina tá com pouca água",
+      "contexto_original": "Março, sem período especial",
+      "contexto": {},
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Lazer",
+        "urgencia": "Baixa",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 16,
+      "grupo": "base",
+      "mensagem": "Piscina baixa e verde e as crianças tão de férias querendo usar",
+      "contexto_original": "Janeiro, período de férias",
+      "contexto": {
+        "periodo_especial": true
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Lazer",
+        "urgencia": "Média",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 17,
+      "grupo": "base",
+      "mensagem": "A grade do ralo da piscina soltou",
+      "contexto_original": "11h",
+      "contexto": {
+        "hora": 11
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Lazer",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 18,
+      "grupo": "base",
+      "mensagem": "Tá saindo faísca da tomada do salão de festas",
+      "contexto_original": "18h",
+      "contexto": {
+        "hora": 18
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Elétrica",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 19,
+      "grupo": "base",
+      "mensagem": "acabou a luz só no bloco A",
+      "contexto_original": "21h",
+      "contexto": {
+        "hora": 21,
+        "afetados": "bloco"
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Elétrica",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 20,
+      "grupo": "base",
+      "mensagem": "O disjuntor da escada fica desarmando toda hora",
+      "contexto_original": "17h",
+      "contexto": {
+        "hora": 17
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Elétrica",
+        "urgencia": "Média",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 21,
+      "grupo": "base",
+      "mensagem": "Tem fumaça saindo do quadro de luz do térreo!!",
+      "contexto_original": "14h",
+      "contexto": {
+        "hora": 14
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Incêndio",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 22,
+      "grupo": "base",
+      "mensagem": "O extintor do 4º andar tá com a validade vencida",
+      "contexto_original": "10h",
+      "contexto": {
+        "hora": 10
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Incêndio",
+        "urgencia": "Média",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 23,
+      "grupo": "base",
+      "mensagem": "O técnico passou orçamento de R$ 3.800 pra trocar a bomba",
+      "contexto_original": "15h",
+      "contexto": {
+        "hora": 15
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Gestão",
+        "urgencia": "Média",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 24,
+      "grupo": "base",
+      "mensagem": "Tá sem água no meu apartamento e no do vizinho também",
+      "contexto_original": "7h",
+      "contexto": {
+        "hora": 7,
+        "afetados": "varios"
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Hidráulica",
+        "urgencia": "Alta",
+        "responsavel": "Manutenção",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 25,
+      "grupo": "base",
+      "mensagem": "Mancha de mofo na parede do quarto que dá pra área comum",
+      "contexto_original": "12h",
+      "contexto": {
+        "hora": 12
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Umidade",
+        "urgencia": "Alta",
+        "responsavel": "Engenharia",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 26,
+      "grupo": "base",
+      "mensagem": "Infiltração no teto do 101 e agora apareceu uma trinca do lado",
+      "contexto_original": "9h",
+      "contexto": {
+        "hora": 9
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Estrutura",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 27,
+      "grupo": "base",
+      "mensagem": "Tem um carro parado na minha vaga de novo",
+      "contexto_original": "19h",
+      "contexto": {
+        "hora": 19
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Convivência",
+        "urgencia": "Baixa",
+        "responsavel": "Portaria",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 28,
+      "grupo": "base",
+      "mensagem": "Carro estacionado na frente da rampa, ninguém consegue sair",
+      "contexto_original": "7h30",
+      "contexto": {
+        "hora": 7
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Convivência",
+        "urgencia": "Média",
+        "responsavel": "Portaria",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 29,
+      "grupo": "base",
+      "mensagem": "Um galho grande da árvore tá rachado e pendurado em cima do parquinho",
+      "contexto_original": "16h",
+      "contexto": {
+        "hora": 16
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Áreas verdes",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 30,
+      "grupo": "base",
+      "mensagem": "Tem um cara estranho tentando abrir o portão de pedestres",
+      "contexto_original": "23h",
+      "contexto": {
+        "hora": 23
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Segurança",
+        "urgencia": "Alta",
+        "responsavel": "Portaria",
+        "vai_ao_sindico": true,
+        "avisa_sindico": true
+      }
+    },
+    {
+      "id": 31,
+      "grupo": "extra",
+      "mensagem": "O porteiro da noite tava dormindo de novo, ninguém abriu o portão",
+      "contexto_original": "7h",
+      "contexto": {
+        "hora": 7
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Gestão",
+        "urgencia": "Média",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 32,
+      "grupo": "extra",
+      "mensagem": "Cachorro do bloco C fez cocô no hall de novo",
+      "contexto_original": "9h",
+      "contexto": {
+        "hora": 9,
+        "reclamacoes_30d": 3
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Convivência",
+        "urgencia": "Média",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false,
+        "aviso_preventiva": true
+      }
+    },
+    {
+      "id": 33,
+      "grupo": "extra",
+      "mensagem": "Minha encomenda sumiu, a portaria diz que entregou",
+      "contexto_original": "18h",
+      "contexto": {
+        "hora": 18
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Convivência",
+        "urgencia": "Baixa",
+        "responsavel": "Portaria",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 34,
+      "grupo": "extra",
+      "mensagem": "Quero reservar a churrasqueira sábado",
+      "contexto_original": "10h",
+      "contexto": {
+        "hora": 10
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "nao_ocorrencia",
+        "categoria": "Não é ocorrência",
+        "urgencia": null,
+        "responsavel": "Resposta automática",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 35,
+      "grupo": "extra",
+      "mensagem": "A calha tá transbordando e entrando água pela janela do 7º",
+      "contexto_original": "Chuva",
+      "contexto": {
+        "chuva": true
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Cobertura",
+        "urgencia": "Alta",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 36,
+      "grupo": "extra",
+      "mensagem": "Tem um balanço do parquinho com a corrente solta",
+      "contexto_original": "16h",
+      "contexto": {
+        "hora": 16
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Lazer",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 37,
+      "grupo": "extra",
+      "mensagem": "Apareceu uma trinca do lado da janela da sala, o prédio foi entregue faz 3 anos",
+      "contexto_original": "Prédio com 3 anos",
+      "contexto": {
+        "meses_desde_habitese": 36
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Estrutura",
+        "urgencia": "Média",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true,
+        "selo_garantia": true
+      }
+    },
+    {
+      "id": 38,
+      "grupo": "extra",
+      "mensagem": "A conta de água do condomínio veio o dobro e ninguém acha vazamento",
+      "contexto_original": "Prédio com 2 anos",
+      "contexto": {
+        "meses_desde_habitese": 24
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Hidráulica",
+        "urgencia": "Média",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true,
+        "selo_garantia": true
+      }
+    },
+    {
+      "id": 39,
+      "grupo": "extra",
+      "mensagem": "A bomba da piscina parou",
+      "contexto_original": "Prédio com 15 anos, janeiro",
+      "contexto": {
+        "meses_desde_habitese": 180,
+        "periodo_especial": true
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Lazer",
+        "urgencia": "Alta",
+        "responsavel": "Manutenção",
+        "vai_ao_sindico": false,
+        "selo_garantia": false
+      }
+    },
+    {
+      "id": 40,
+      "grupo": "extra",
+      "mensagem": "Tem um pó branco saindo da parede da garagem",
+      "contexto_original": "10h",
+      "contexto": {
+        "hora": 10
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Umidade",
+        "urgencia": "Média",
+        "responsavel": "Engenharia",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 41,
+      "grupo": "extra",
+      "mensagem": "Tá aparecendo ferro enferrujado no teto do subsolo",
+      "contexto_original": "15h",
+      "contexto": {
+        "hora": 15
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Estrutura",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 42,
+      "grupo": "extra",
+      "mensagem": "O facial não me reconhece e tô preso do lado de fora",
+      "contexto_original": "23h",
+      "contexto": {
+        "hora": 23
+      },
+      "equipe": "portaria_remota",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Acesso",
+        "urgencia": "Alta",
+        "responsavel": "Portaria",
+        "vai_ao_sindico": false,
+        "detalhe_contem": "remota"
+      }
+    },
+    {
+      "id": 43,
+      "grupo": "extra",
+      "mensagem": "O vizinho do 42 me ameaçou no corredor",
+      "contexto_original": "20h",
+      "contexto": {
+        "hora": 20
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Convivência",
+        "urgencia": "Alta",
+        "responsavel": "Portaria",
+        "vai_ao_sindico": true,
+        "avisa_sindico": true
+      }
+    },
+    {
+      "id": 44,
+      "grupo": "extra",
+      "mensagem": "A torneira da pia do salão tá pingando sem parar",
+      "contexto_original": "Salão reservado amanhã",
+      "contexto": {
+        "evento_reservado_48h": true
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Mobiliário",
+        "urgencia": "Alta",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 45,
+      "grupo": "extra",
+      "mensagem": "Tem duas cadeiras quebradas no salão de festas",
+      "contexto_original": "Sem reserva",
+      "contexto": {},
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Mobiliário",
+        "urgencia": "Baixa",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 46,
+      "grupo": "extra",
+      "mensagem": "A esteira da academia tá dando choque",
+      "contexto_original": "7h",
+      "contexto": {
+        "hora": 7
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Elétrica",
+        "urgencia": "Alta",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 47,
+      "grupo": "extra",
+      "mensagem": "Seria bom comprar mesas novas pro espaço gourmet",
+      "contexto_original": "11h",
+      "contexto": {
+        "hora": 11
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Gestão",
+        "urgencia": "Média",
+        "responsavel": "Síndico",
+        "vai_ao_sindico": true
+      }
+    },
+    {
+      "id": 48,
+      "grupo": "extra",
+      "mensagem": "As cadeiras do salão ficaram tudo jogada depois da festa",
+      "contexto_original": "Domingo, 10h",
+      "contexto": {
+        "hora": 10
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "triado",
+        "categoria": "Mobiliário",
+        "urgencia": "Baixa",
+        "responsavel": "Zelador",
+        "vai_ao_sindico": false
+      }
+    },
+    {
+      "id": 49,
+      "grupo": "extra",
+      "mensagem": "Problema com a cadeira do salão",
+      "contexto_original": "15h",
+      "contexto": {
+        "hora": 15
+      },
+      "equipe": "padrao",
+      "esperado": {
+        "status": "pergunta_ao_morador",
+        "categoria": null,
+        "urgencia": null,
+        "responsavel": null,
+        "vai_ao_sindico": false,
+        "botoes": [
+          "Quebrada",
+          "Fora do lugar",
+          "Outro"
+        ]
+      }
+    }
+  ]
+}

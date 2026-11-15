@@ -1,0 +1,72 @@
+﻿codigo,tipo_ocorrencia,categoria,urgencia_base,o_que_sobe_ou_desce,modificadores,quem_resolve,sensivel,sistema_garantia,origem
+1,Lâmpada queimada em área comum,Elétrica,Baixa,Escada ou garagem à noite: sobe,noite&escada_ou_garagem:+1,Zelador,Não,,tabela_v3
+2,"Fio exposto, choque, faísca, tomada esquentando",Elétrica,Alta,—,,Síndico (+ eletricista),Sim,,tabela_v3
+3,Falta de luz no prédio ou bloco,Elétrica,Alta,Só 1 apartamento: desce,um_apto:-1,Síndico (+ eletricista),Sim,,tabela_v3
+4,Disjuntor desarmando,Elétrica,Média,Repetição ou cheiro de queimado: sobe,"repeticao:+1;cheiro_queimado:+1",Síndico (+ eletricista),Sim,,tabela_v3
+5,Para-raios (SPDA) danificado,Elétrica,Média,—,,Síndico (+ empresa),Sim,,tabela_v3
+6,Vazamento pequeno em área comum,Hidráulica,Média,"Atingindo elétrica, elevador ou apartamento: sobe",atingindo_eletrica_elevador_apto:+1,Zelador,Não,,tabela_v3
+7,"Cano estourado, alagamento",Hidráulica,Alta,—,,Manutenção (encanador),Não,,tabela_v3
+8,Falta de água / bomba parada,Hidráulica,Alta,Só 1 apartamento: desce,um_apto:-1,Manutenção,Não,,tabela_v3
+9,"Esgoto voltando, caixa de gordura transbordando",Hidráulica,Média,Dentro de apartamento ou cheiro forte: sobe,"dentro_apto:+1;cheiro_forte:+1",Manutenção,Não,,tabela_v3
+10,Ralo ou grelha entupidos,Hidráulica,Baixa,Chuva: sobe,chuva:+1,Zelador,Não,,tabela_v3
+10b,"Caixa d'água com vazamento, sem tampa ou sem limpeza em dia",Hidráulica,Média,Água com cor ou cheiro: sobe (saúde),agua_cor_cheiro:+1,Manutenção,Não,,tabela_v3
+10d,Vazamento ou água acumulada no subsolo,Hidráulica,Média,Perto de elétrica ou bombas: sobe. Prédio na garantia: selo,perto_eletrica_bomba:+1,Engenharia,Não,instalacoes,tabela_v3
+10c,"Vazamento oculto (conta de água alta, umidade sem origem visível)",Hidráulica,Média,"Prédio na garantia: selo ""Possível garantia""",,Engenharia,Não,instalacoes,tabela_v3
+11,"Infiltração, mancha de umidade",Umidade,Média,Com trinca: vira sensível. Repetição: preventiva,com_trinca:vira=16,Engenharia,Não,impermeabilizacao,tabela_v3
+12,Mofo (afeta a saúde),Umidade,Alta,"Mancha pequena e isolada, em área aberta: desce",mancha_pequena_isolada_aberta:-1,Engenharia,Não,,tabela_v3
+13,"Peitoril sem caimento, água entrando no apartamento",Umidade,Média,Chuva: sobe,chuva:+1,Engenharia,Não,impermeabilizacao,tabela_v3
+14,Vazamento pelo telhado ou laje,Cobertura,Média,Chuva: sobe,chuva:+1,Manutenção,Não,impermeabilizacao,tabela_v3
+15b,Cobertura da garagem danificada ou vazando,Cobertura,Média,Chuva: sobe,chuva:+1,Manutenção,Não,impermeabilizacao,tabela_v3
+15,Calha entupida ou transbordando,Cobertura,Média,Chuva: sobe. Repetição: limpeza periódica,chuva:+1,Zelador (+ manutenção),Não,,tabela_v3
+16,"Trinca ou rachadura em parede, viga ou laje",Estrutura,Alta,"Prédio na garantia: selo ""Possível garantia""",,Síndico (+ engenharia),Sim,estrutura,tabela_v3
+16b,"Trinca fina em parede interna, perto de janela ou porta",Estrutura,Média,"Aumentando: sobe. Prédio na garantia: selo ""Possível garantia""",aumentando:+1,Engenharia (+ síndico se garantia),Não,estrutura,tabela_v3
+17,"Desplacamento de fachada, queda de revestimento",Estrutura,Alta,—,,Síndico (+ engenharia),Sim,revestimento_fachada,tabela_v3
+18,Piso oco ou solto,Estrutura,Média,Solto em área de circulação (risco de queda): sobe,solto_circulacao:+1,Manutenção,Não,revestimento_interno,tabela_v3
+18b,Piso manchado,Estrutura,Baixa,—,,Zelador,Não,,tabela_v3
+19,Cheiro de gás,Gás,Alta,—,,Síndico (+ concessionária),Sim,,tabela_v3
+20,Elevador parado,Elevador,Alta,Pessoa presa: imediato,pessoa_presa:imediato,Síndico (+ empresa do elevador),Sim,,tabela_v3
+21,Elevador com barulho ou tranco,Elevador,Média,Repetição: sobe,repeticao:+1,Síndico (+ empresa do elevador),Sim,,tabela_v3
+22,"Fumaça, cheiro de queimado, princípio de incêndio",Incêndio,Alta,—,,Síndico (+ Bombeiros 193),Sim,,tabela_v3
+23,"Extintor vencido, hidrante, alarme, porta corta-fogo ou luz de emergência com defeito",Incêndio,Média,Alarme disparando: sobe,alarme_disparando:+1,Síndico,Sim,,tabela_v3
+24,Piscina com água baixa ou suja,Lazer,Baixa,Férias ou temporada: sobe,periodo_especial:+1,Zelador,Não,,tabela_v3
+24b,Bomba ou filtro da piscina parado,Lazer,Média,Férias ou temporada: sobe,periodo_especial:+1,Manutenção,Não,,tabela_v3
+25,Ralo de sucção ou grelha da piscina solta,Lazer,Alta,—,,Síndico,Sim,,tabela_v3
+26,Brinquedo solto ou quebrado no playground,Lazer,Alta,—,,Síndico (+ manutenção),Sim,,tabela_v3
+27,"Jardim, poda, grama alta",Áreas verdes,Baixa,—,,Zelador,Não,,tabela_v3
+28,Galho ou árvore com risco de queda,Áreas verdes,Alta,—,,Síndico,Sim,,tabela_v3
+29,Portão da garagem travado ou sem fechar,Acesso,Média,À noite ou portão aberto: sobe,"noite:+1;portao_aberto:+1",Manutenção,Não,,tabela_v3
+30,Interfone ou portaria sem funcionar,Acesso,Média,Só 1 apartamento: desce,um_apto:-1,Portaria,Não,,tabela_v3
+31,"Pessoa estranha, tentativa de invasão",Segurança,Alta,—,,Portaria (e avisa o síndico),Sim,,tabela_v3
+31b,"Controle de acesso falhando (facial, tag, controle do portão)",Acesso,Média,Morador preso fora ou à noite: sobe,"morador_preso_fora:+1;noite:+1",Portaria (+ empresa de acesso),Não,,tabela_v3
+31c,"Porta de entrada do bloco sem fechar, mola ou fechadura quebrada",Acesso,Média,À noite: sobe,noite:+1,Manutenção,Não,,tabela_v3
+31d,"Falta de segurança (entrada escura, câmera parada, ponto vulnerável na saída)",Segurança,Média,Repetição ou incidente: sobe,"repeticao:+1;incidente:+1",Síndico,Sim,,tabela_v3
+31e,"Pedido de tag, cadastro facial ou controle novo",Não é ocorrência,—,Não é ocorrência,,Resposta automática (portaria),Não,,tabela_v3
+32,Barulho de vizinho,Convivência,Baixa,Depois das 22h ou repetição: sobe,"apos_22h:+1;repeticao:+1",Portaria,Não,,tabela_v3
+33,"Barulho na churrasqueira, salão ou área de lazer",Convivência,Baixa,Depois das 22h: sobe,apos_22h:+1,Portaria,Não,,tabela_v3
+34,Carro em vaga errada,Convivência,Baixa,Bloqueando a saída: sobe,bloqueando_saida:+1,Portaria,Não,,tabela_v3
+35,Uso indevido da quadra ou área comum,Convivência,Baixa,—,,Portaria,Não,,tabela_v3
+36,Animal fazendo sujeira em área comum,Convivência,Baixa,Repetição: sobe,repeticao:+1,Zelador (limpa) + portaria (avisa o tutor),Não,,tabela_v3
+37,Entrega errada ou extraviada,Convivência,Baixa,—,,Portaria,Não,,tabela_v3
+37b,"Cheiro de cigarro (varanda, escada, área comum)",Convivência,Baixa,Repetição: sobe,repeticao:+1,Portaria (orienta pelo regimento),Não,,tabela_v3
+37c,Briga entre vizinhos,Convivência,Média,Agressão ou ameaça: Alta e sensível,"agressao_ou_ameaca:alta,sensivel",Portaria (e avisa o síndico),Não,,tabela_v3
+38,"Lixo acumulado, sujeira em área comum",Limpeza,Baixa,Cheiro forte ou pragas: sobe,"cheiro_forte:+1;pragas:+1",Zelador,Não,,tabela_v3
+39,"Ratos, baratas, pragas",Limpeza,Média,Repetição: dedetização periódica,,Zelador (+ dedetização),Não,,tabela_v3
+M1,"Cadeira, mesa ou banco quebrado, solto ou bambo",Mobiliário,Baixa,Risco de queda ou farpa: sobe. Evento reservado: sobe,"risco_queda_farpa:+1;evento_reservado:+1",Zelador,Não,,tabela_v3
+M2,"Pia ou torneira vazando ou entupida (salão, churrasqueira, copa)",Mobiliário,Média,Evento reservado: sobe,evento_reservado:+1,Zelador,Não,,tabela_v3
+M3,"Vaso sanitário, descarga ou pia do banheiro de área comum com defeito",Mobiliário,Média,Evento reservado ou único banheiro: sobe,"evento_reservado:+1;unico_banheiro:+1",Zelador,Não,,tabela_v3
+M4,"Churrasqueira com defeito (grelha, tijolo solto, fumaça voltando)",Mobiliário,Média,Evento reservado: sobe,evento_reservado:+1,Manutenção,Não,,tabela_v3
+M5,"Geladeira, freezer, fogão ou cooktop do salão sem funcionar",Mobiliário,Média,Evento reservado: sobe. Cheiro de gás: vira item 19,"evento_reservado:+1;cheiro_gas:vira=19",Manutenção,Não,,tabela_v3
+M6,Ar-condicionado ou ventilador de área comum sem funcionar,Mobiliário,Baixa,Calor forte ou evento reservado: sobe,"calor_forte:+1;evento_reservado:+1",Manutenção,Não,,tabela_v3
+M7,"Aparelho da academia quebrado (esteira, bicicleta, anilha, banco)",Mobiliário,Média,Risco de acidente: Alta e sensível,"risco_acidente:alta,sensivel",Manutenção (isola o aparelho),Não,,tabela_v3
+M8,"Vidro, espelho ou tampo de mesa trincado",Mobiliário,Média,Risco de corte em área de passagem ou de crianças: Alta e sensível,"risco_corte:alta,sensivel",Manutenção,Não,,tabela_v3
+M9,Sauna sem funcionar,Mobiliário,Baixa,Fio ou cheiro de queimado: vira item 2,fio_ou_cheiro_queimado:vira=2,Manutenção,Não,,tabela_v3
+M10,"TV, som ou equipamento do salão, brinquedoteca ou espaço gourmet",Mobiliário,Baixa,Evento reservado: sobe,evento_reservado:+1,Zelador,Não,,tabela_v3
+M11,"Mesa de sinuca, ping-pong ou jogos danificada",Mobiliário,Baixa,—,,Zelador,Não,,tabela_v3
+M12,"Lixeira, bicicletário, caixa de correio, cortina ou persiana quebrada",Mobiliário,Baixa,—,,Zelador,Não,,tabela_v3
+M12b,"Móvel fora do lugar, salão desarrumado depois de evento",Mobiliário,Baixa,—,,Zelador,Não,,tabela_v3
+M13,Pedido de móvel ou equipamento novo,Gestão,Média,—,,Síndico (Gestão),Sim,,tabela_v3
+40,"Pedido de compra, orçamento ou serviço pago",Gestão,Média,—,,Síndico,Sim,,tabela_v3
+41,"Cobrança do conselho fiscal, prestação de contas",Gestão,Média,—,,Síndico,Sim,,tabela_v3
+41b,Conta alta de energia ou ar-condicionado das áreas comuns,Gestão,Baixa,Aumento grande de um mês para o outro: sobe,aumento_grande:+1,Síndico,Sim,,tabela_v3
+42,"Reclamação sobre funcionário (porteiro dormindo, zelador não fez o serviço)",Gestão,Média,Repetição: sobe,repeticao:+1,Síndico,Sim,,tabela_v3
+NR4,"Reserva de churrasqueira, salão ou quadra",Não é ocorrência,—,Regra especial 4: resposta automática com o canal de reservas,,Resposta automática (reservas),Não,,regra_especial_4

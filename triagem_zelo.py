@@ -1,142 +1,104 @@
-import psycopg2
-from psycopg2.extras import RealDictCursor
-from pymongo import MongoClient
-from datetime import datetime
+"""CLI do POC do Zelo.
 
-# 1. Configurações dos Bancos (PostgreSQL na 5435 e MongoDB na 27019)
-PG_CONFIG = {
-    "host": "localhost",
-    "port": 5435,
-    "database": "zelo_db",
-    "user": "zelo_admin",
-    "password": "zelo_password_123"
-}
+    python triagem_zelo.py                 # demo: classifica algumas mensagens (sem banco)
+    python triagem_zelo.py --avaliar       # roda as 49 ocorrencias de exemplo
+    python triagem_zelo.py "mensagem"      # triagem de uma mensagem  [--hora 22] [--ferias] [--chuva] ...
+    python triagem_zelo.py --seed          # recria regras_triagem no PostgreSQL a partir do CSV
+    python triagem_zelo.py --persistir ... # alem de triar, grava a ocorrencia no MongoDB
+"""
+from __future__ import annotations
 
-MONGO_URI = "mongodb://zelo_admin:zelo_password_123@localhost:27019/"
+import argparse
+import sys
 
-def elevar_urgencia(urgencia_atual, sla_atual):
-    if urgencia_atual == 'Baixa':
-        return 'Média', int(sla_atual / 2)
-    elif urgencia_atual == 'Média':
-        return 'Alta', int(sla_atual / 3)
-    return 'Alta', sla_atual
+from zelo import avaliacao
+from zelo.classificador import ClassificadorPorRegras
+from zelo.equipe import Equipe
+from zelo.modelos import Contexto
+from zelo.triagem import ResultadoTriagem, triar, tabela_padrao
 
-def processar_ocorrencia(condominio, morador, mensagem_morador, codigo_ia, modificador_contexto=False, foto_url=None):
-    try:
-        # --- ETAPA 1: CONSULTA REGRAS RÍGIDAS NO POSTGRESQL ---
-        pg_conn = psycopg2.connect(**PG_CONFIG)
-        pg_cursor = pg_conn.cursor(cursor_factory=RealDictCursor)
 
-        pg_cursor.execute("SELECT * FROM regras_triagem WHERE codigo_regra = %s;", (codigo_ia,))
-        regra = pg_cursor.fetchone()
+def imprimir(r: ResultadoTriagem) -> None:
+    print("=" * 72)
+    print(f'"{r.mensagem}"')
+    print("-" * 72)
+    if r.status == "pergunta_ao_morador":
+        print(f"PERGUNTA AO MORADOR: {r.pergunta}  {r.botoes or ''}")
+    elif r.status == "nao_ocorrencia":
+        print(f"NÃO É OCORRÊNCIA -> resposta automática: {r.resposta_automatica}")
+    else:
+        print(f"Item da tabela : [{r.codigo}] {r.tipo_ocorrencia}" if r.codigo else "Item da tabela : (não classificada)")
+        print(f"Categoria      : {r.categoria}")
+        print(f"Urgência       : {r.urgencia_base or '-'} -> {r.urgencia_final}"
+              f"{' (IMEDIATO)' if r.imediato else ''}  | prazo {r.prazo_horas}h")
+        print(f"Responsável    : {r.responsavel_detalhe}" + (f"  (executa: {r.executor})" if r.executor and r.executor != r.responsavel else ""))
+        print(f"Síndico        : {'SIM - ' + ', '.join(r.motivos_sindico) if r.vai_ao_sindico else ('só avisado' if r.avisa_sindico else 'não')}")
+        if r.selo_garantia:
+            print('Selo           : "Possível garantia da construtora"')
+        if r.aviso_preventiva:
+            print('Aviso          : "hora de manutenção preventiva"')
+        for a in r.ajustes:
+            print(f"   * {a}")
+    print("=" * 72 + "\n")
 
-        if not regra:
-            print(f"[ERRO] Regra '{codigo_ia}' não encontrada.")
-            return
 
-        urgencia_final = regra['urgencia_base']
-        sla_final = regra['sla_horas']
-        alerta_modificador = "Não aplicado (Cenário padrão)"
+DEMO = [
+    ("A bomba da piscina está vazando de novo!", Contexto(hora=10)),
+    ("O portão da garagem travou aberto e já são 23h30!", Contexto(hora=23)),
+    ("Tô sentindo um cheiro forte de gás na escada do bloco B", Contexto(hora=19)),
+    ("Quero reservar a churrasqueira sábado", Contexto(hora=10)),
+    ("Problema com a cadeira do salão", Contexto(hora=15)),
+]
 
-        if modificador_contexto and regra['condicao_modificadora']:
-            urgencia_final, sla_final = elevar_urgencia(urgencia_final, sla_final)
-            alerta_modificador = f"ATIVO ({regra['condicao_modificadora']})"
 
-        notificar_sindico = regra['is_sensivel'] or urgencia_final == 'Alta'
+def main(argv=None) -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("mensagem", nargs="?")
+    ap.add_argument("--avaliar", action="store_true")
+    ap.add_argument("--seed", action="store_true")
+    ap.add_argument("--persistir", action="store_true")
+    ap.add_argument("--condominio", default="Condomínio Jardim")
+    ap.add_argument("--morador", default="Morador Apto 21")
+    ap.add_argument("--hora", type=int)
+    ap.add_argument("--ferias", action="store_true", help="periodo especial (ferias/temporada/festas)")
+    ap.add_argument("--chuva", action="store_true")
+    ap.add_argument("--evento", action="store_true", help="salao/churrasqueira reservado nas proximas 48h")
+    ap.add_argument("--reclamacoes", type=int, default=1, help="reclamacoes do mesmo problema em 30 dias")
+    ap.add_argument("--habitese-meses", type=int, help="meses desde o habite-se")
+    ap.add_argument("--so-portaria-remota", action="store_true")
+    a = ap.parse_args(argv)
 
-        # --- ETAPA 2: CRIA O DOCUMENTO DE HISTÓRICO NO MONGODB ---
-        mongo_client = MongoClient(MONGO_URI)
-        mongo_db = mongo_client["zelo_logs"]
-        colecao_ocorrencias = mongo_db["ocorrencias"]
+    if a.seed:
+        from zelo import persistencia
 
-        agora = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        conn = persistencia.conectar_pg()
+        try:
+            print(f"{persistencia.semear_tabela(conn, tabela_padrao())} regras gravadas no PostgreSQL")
+        finally:
+            conn.close()
+        return 0
+    if a.avaliar:
+        return avaliacao.main()
 
-        # Monta a Linha do Tempo igual à Tela do protótipo
-        historico_eventos = [
-            {
-                "data_hora": agora,
-                "evento": f"Recebida pelo WhatsApp ({morador})",
-                "mensagem_original": mensagem_morador
-            },
-            {
-                "data_hora": agora,
-                "evento": f"Classificada pela IA: {regra['categoria']} | Urgência {urgencia_final}",
-                "modificador_aplicado": alerta_modificador
-            },
-            {
-                "data_hora": agora,
-                "evento": f"Encaminhada automaticamente para: {regra['responsavel']}"
-            }
-        ]
+    clf = ClassificadorPorRegras()
+    equipe = Equipe.so_portaria_remota() if a.so_portaria_remota else Equipe.padrao()
+    casos = (
+        [(a.mensagem, Contexto(
+            hora=a.hora, periodo_especial=a.ferias, chuva=a.chuva, evento_reservado_48h=a.evento,
+            reclamacoes_30d=a.reclamacoes, meses_desde_habitese=a.habitese_meses))]
+        if a.mensagem else DEMO
+    )
+    for msg, ctx in casos:
+        r = triar(msg, clf.classificar(msg), ctx, tabela_padrao(), equipe)
+        imprimir(r)
+        if a.persistir:
+            from zelo import persistencia
 
-        if notificar_sindico:
-            historico_eventos.append({
-                "data_hora": agora,
-                "evento": "🚨 ALERTA CRÍTICO enviado ao painel do Síndico"
-            })
+            print(f"   gravada no MongoDB: {persistencia.salvar_ocorrencia(r, a.condominio, a.morador)}\n")
+    return 0
 
-        documento_ocorrencia = {
-            "condominio": condominio,
-            "morador": morador,
-            "status": "Em andamento",
-            "classificacao": {
-                "codigo_nbr": regra['codigo_regra'],
-                "tipo": regra['tipo_ocorrencia'],
-                "categoria": regra['categoria'],
-                "urgencia_base": regra['urgencia_base'],
-                "urgencia_final": urgencia_final,
-                "sla_horas": sla_final,
-                "responsavel": regra['responsavel'],
-                "sensivel_sindico": notificar_sindico
-            },
-            "midia": {
-                "foto_abertura": foto_url,
-                "foto_resolucao": None
-            },
-            "historico_timeline": historico_eventos
-        }
-
-        resultado_mongo = colecao_ocorrencias.insert_one(documento_ocorrencia)
-
-        # --- EXIBE RESUMO NO TERMINAL ---
-        print("=" * 70)
-        print(f"✅ OCORRÊNCIA REGISTRADA! ID MongoDB: {resultado_mongo.inserted_id}")
-        print(f"🏢 {condominio} | 👤 {morador}")
-        print(f"💬 \"{mensagem_morador}\"")
-        print("-" * 70)
-        print(f"🏷️  NBR 5674   : [{regra['codigo_regra']}] {regra['tipo_ocorrencia']}")
-        print(f"⚡ Urgência   : {regra['urgencia_base']} ➡️  {urgencia_final.upper()} (SLA: {sla_final}h)")
-        print(f"👷 Destino    : {regra['responsavel']}")
-        print(f"🚨 Síndico?   : {'SIM (Notificado)' if notificar_sindico else 'NÃO (Silenciado)'}")
-        print("=" * 70 + "\n")
-
-    except Exception as e:
-        print(f"Erro no processamento: {e}")
-    finally:
-        if 'pg_conn' in locals() and pg_conn:
-            pg_cursor.close()
-            pg_conn.close()
-        if 'mongo_client' in locals() and mongo_client:
-            mongo_client.close()
 
 if __name__ == "__main__":
-    print("\n🚀 INICIANDO ARQUITETURA HÍBRIDA ZELO (POSTGRESQL + MONGODB)\n")
-
-    # Teste 1: A bomba da piscina
-    processar_ocorrencia(
-        condominio="Condomínio Jardim",
-        morador="Morador Apto 21",
-        mensagem_morador="A bomba da piscina está vazando de novo!",
-        codigo_ia="4",
-        modificador_contexto=False,
-        foto_url="https://zelo.app/uploads/bomba_vazando_antes.jpg"
-    )
-
-    # Teste 2: Portão travado à noite
-    processar_ocorrencia(
-        condominio="Condomínio Aurora",
-        morador="Morador Apto 303",
-        mensagem_morador="O portão da garagem travou aberto e já são 23h30!",
-        codigo_ia="16",
-        modificador_contexto=True
-    )
+    raise SystemExit(main())

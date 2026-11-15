@@ -2,7 +2,8 @@
 venv/
 .venv/
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
 
 # Variáveis de ambiente e futuras chaves de API da IA
 .env
