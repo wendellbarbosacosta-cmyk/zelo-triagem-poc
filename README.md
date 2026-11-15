@@ -78,6 +78,93 @@ python triagem_zelo.py --persistir "Tô sentindo um cheiro forte de gás na esca
 ZELO_INTEGRACAO=1 python -m unittest tests.test_integracao -v
 ```
 
+## 🔍 Como visualizar os dados (com e sem SQL)
+
+### 1. Sem precisar de SQL nem instalar banco
+- **Direto no GitHub ou no Excel / Google Sheets:** abra [`data/tabela_triagem.csv`](data/tabela_triagem.csv). O próprio GitHub exibe o arquivo em formato de planilha interativa com barra de busca por palavra.
+
+### 2. No pgAdmin 4 (passo a passo sem digitar SQL)
+Conecte com os dados locais do `docker-compose.yml`:
+- **Host name/address:** `localhost`
+- **Port:** `5435`
+- **Maintenance database:** `zelo_db`
+- **Username:** `zelo_admin`
+- **Password:** `zelo_password_123`
+
+Para ver a tabela clicando na interface:
+1. No menu lateral esquerdo, expanda **`Servers` → seu servidor → `Databases` → `zelo_db` → `Schemas` → `public` → `Tables`**.
+2. Clique com o botão direito em **`regras_triagem`** → **`View/Edit Data`** → **`All Rows`**.
+
+### 3. Consultas SQL prontas para copiar e colar (pgAdmin 4)
+Para rodar qualquer uma das consultas abaixo: clique com o botão direito em **`zelo_db`** → **`Query Tool`**, cole o bloco desejado e aperte **`F5`** (ou o botão **Play ▶**).
+
+**1) Ver todas as 71 regras de forma limpa:**
+```sql
+SELECT codigo, tipo_ocorrencia, categoria, urgencia_base, o_que_sobe_ou_desce, quem_resolve, sensivel
+FROM regras_triagem;
+```
+
+**2) Ver apenas os 21 casos sensíveis que vão sempre ao Síndico (ZELO-9):**
+```sql
+SELECT codigo, tipo_ocorrencia, categoria, urgencia_base, quem_resolve
+FROM regras_triagem
+WHERE sensivel = TRUE;
+```
+
+**3) Resumo de quantas regras existem por Categoria oficial (ZELO-6):**
+```sql
+SELECT categoria,
+       count(*) AS total_regras,
+       count(*) FILTER (WHERE sensivel) AS casos_sensiveis
+FROM regras_triagem
+GROUP BY categoria
+ORDER BY total_regras DESC;
+```
+
+**4) Resumo de quantas regras vão para cada Responsável (`quem_resolve`):**
+```sql
+SELECT quem_resolve, count(*) AS total_regras
+FROM regras_triagem
+GROUP BY quem_resolve
+ORDER BY total_regras DESC;
+```
+
+**5) Ver o que o Zelador resolve no dia a dia (sem precisar do Síndico):**
+```sql
+SELECT codigo, tipo_ocorrencia, categoria, urgencia_base, o_que_sobe_ou_desce
+FROM regras_triagem
+WHERE quem_resolve LIKE 'Zelador%'
+  AND sensivel = FALSE;
+```
+
+**6) Ver apenas os itens que têm prazo de garantia da construtora (`sistema_garantia IS NOT NULL`):**
+```sql
+SELECT codigo, tipo_ocorrencia, categoria, sistema_garantia, urgencia_base, sensivel
+FROM regras_triagem
+WHERE sistema_garantia IS NOT NULL;
+```
+
+**7) Ver os itens cuja urgência muda com o contexto:**
+```sql
+SELECT codigo, tipo_ocorrencia, urgencia_base, o_que_sobe_ou_desce, modificadores
+FROM regras_triagem
+WHERE o_que_sobe_ou_desce <> '—'
+  AND o_que_sobe_ou_desce <> '';
+```
+
+**8) Pesquisar por palavra-chave (troque `'piscina'` por `'elevador'`, `'gás'`, `'portão'`, etc.):**
+```sql
+SELECT codigo, tipo_ocorrencia, categoria, urgencia_base, quem_resolve, sensivel
+FROM regras_triagem
+WHERE tipo_ocorrencia ILIKE '%piscina%';
+```
+
+### 4. No MongoDB Compass (linha do tempo e ocorrências registradas)
+Para visualizar as ocorrências gravadas com `--persistir` (incluindo fotos e `historico_timeline`):
+- **URI de Conexão:** `mongodb://zelo_admin:zelo_password_123@localhost:27019/`
+- **Banco de Dados:** `zelo_logs`
+- **Coleção:** `ocorrencias`
+
 ## Premissas em aberto (para validar com PO / Engenharia)
 
 Os itens abaixo estão centralizados em `zelo/config.py` e precisam de validação com a PO (Rayssa) e engenheiro de manutenção predial:
