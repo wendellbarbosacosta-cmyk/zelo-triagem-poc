@@ -1,0 +1,38 @@
+services:
+  zelo_postgres:
+    image: postgres:15-alpine
+    container_name: zelo_postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: zelo_admin
+      POSTGRES_PASSWORD: zelo_password_123
+      POSTGRES_DB: zelo_db
+    ports:
+      - "5435:5432"
+    volumes:
+      - zelo_pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - zelo_network
+
+  zelo_mongo:
+    image: mongo:7.0
+    container_name: zelo_mongo_db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: zelo_admin
+      MONGO_INITDB_ROOT_PASSWORD: zelo_password_123
+    ports:
+      - "27019:27017"
+    volumes:
+      - zelo_mongodata:/data/db
+    networks:
+      - zelo_network
+
+volumes:
+  zelo_pgdata:
+  zelo_mongodata:
+
+networks:
+  zelo_network:
+    driver: bridge

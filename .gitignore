@@ -1,0 +1,14 @@
+# Ambientes virtuais
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Variáveis de ambiente e futuras chaves de API da IA
+.env
+
+# Arquivos de sistema e IDEs
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
